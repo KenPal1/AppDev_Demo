@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(status=Post.Status.PUBLISHED)
+        return super().get_queryset().filter(status=self.model.Status.PUBLISHED)
 
 class Post(models.Model):
 
@@ -19,7 +19,7 @@ class Post(models.Model):
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=2, choices=Status.choices, default=Status.DRAFT)
-
+    
     objects = models.Manager()
     published = PublishedManager()
 
